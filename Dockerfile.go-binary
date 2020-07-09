@@ -17,4 +17,4 @@ FROM gcr.io/distroless/static@sha256:9540687df23459ddf87bbb32845db80193d392ed778
 ENTRYPOINT [ "/bin/${BINARY_NAME}" ]
 COPY _output/local/bin/linux/amd64/${BINARY_NAME} /bin/${BINARY_NAME}
 
-USER 65534
+USER nonroot
