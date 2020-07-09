@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM golang:1.14.0
+FROM golang:1.14.4
 
 LABEL name=tf-kubernetes-configmap-backend-dev
 
