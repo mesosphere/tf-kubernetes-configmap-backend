@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM gcr.io/distroless/static@sha256:9b60270ec0991bc4f14bda475e8cae75594d8197d0ae58576ace84694aa75d7a
+FROM gcr.io/distroless/static@sha256:9540687df23459ddf87bbb32845db80193d392ed7781a0696518da6fe969d286
 
 ENTRYPOINT [ "/bin/${BINARY_NAME}" ]
 COPY _output/local/bin/linux/amd64/${BINARY_NAME} /bin/${BINARY_NAME}
