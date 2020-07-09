@@ -1,7 +1,7 @@
 # Terraform Kubernetes ConfigMap Backend
 
-![Docker Image Version (latest semver)](https://img.shields.io/docker/v/jimmidyson/tf-kubernetes-configmap-backend?sort=semver&style=for-the-badge)
-![Docker Image Size (latest semver)](https://img.shields.io/docker/image-size/jimmidyson/tf-kubernetes-configmap-backend?sort=semver&style=for-the-badge)
+![Docker Image Version (latest semver)](https://img.shields.io/docker/v/mesosphere/tf-kubernetes-configmap-backend?sort=semver&style=for-the-badge)
+![Docker Image Size (latest semver)](https://img.shields.io/docker/image-size/mesosphere/tf-kubernetes-configmap-backend?sort=semver&style=for-the-badge)
 
 This project provides a service that can be used as a [Terraform](https://www.terraform.io/) [http backend](https://www.terraform.io/docs/backends/types/http.html) to store Terraform state in [Kubernetes](https://kubernetes.io/) [ConfigMaps](https://kubernetes.io/docs/tasks/configure-pod-container/configure-pod-configmap/#create-a-configmap), with [optional state locking](#optional-state-locking).
 
@@ -38,11 +38,11 @@ Once the requster is authenticated and the user ID is retrieved, `tf-kubernetes-
 
 `tf-kubernetes-configmap-backend` supports state locking if Terraform sends the `LOCK` and `UNLOCK` requests, enabled by configuring `lock_address` and `unlock_address`. Terraform requests state locking by sending a `LOCK` request (an HTTP request with verb of `LOCK`). The request contains lock information, most importantly a lock ID, which is a generated UUID: a unique identifier for every single operation.
 
-`tf-kubernetes-configmap-backend` uses annotations on the targeted `configmap` to perform state locking. On receiving a lock request, `tf-kubernetes-configmap-backend` compares the lock ID in the body of the request with the current value of the `tf-kubernetes-configmap-backend.jimmidyson.github.com/lock-id` annotation. If the annotation is not present or matches the current value, then the `configmap` annotations are updated to indicate that it is locked. If the annotation is present and the value does not match the current value, then `tf-kubernetes-configmap-backend` returns a `423 Locked` with the current lock info, following the behaviour defined in the [Terraform docs](https://www.terraform.io/docs/backends/types/http.html).
+`tf-kubernetes-configmap-backend` uses annotations on the targeted `configmap` to perform state locking. On receiving a lock request, `tf-kubernetes-configmap-backend` compares the lock ID in the body of the request with the current value of the `tf-kubernetes-configmap-backend.mesosphere.github.com/lock-id` annotation. If the annotation is not present or matches the current value, then the `configmap` annotations are updated to indicate that it is locked. If the annotation is present and the value does not match the current value, then `tf-kubernetes-configmap-backend` returns a `423 Locked` with the current lock info, following the behaviour defined in the [Terraform docs](https://www.terraform.io/docs/backends/types/http.html).
 
 On receiving `UNLOCK`, the same behaviour applies and is only unlocked if the requester lock ID matches the current lock ID in the `configmap` annotations.
 
-Following standard Terraform behaviour, to forcibly unlock state (e.g. in the case of a zombie process holding the lock), either run `terraform force-unlock <lock_id> -force` or remove the annotations prefixed with `tf-kubernetes-configmap-backend.jimmidyson.github.com/` directly from the `configmap`. This will allow future processes to lock the state again.
+Following standard Terraform behaviour, to forcibly unlock state (e.g. in the case of a zombie process holding the lock), either run `terraform force-unlock <lock_id> -force` or remove the annotations prefixed with `tf-kubernetes-configmap-backend.mesosphere.github.com/` directly from the `configmap`. This will allow future processes to lock the state again.
 
 ## State compression and minification
 

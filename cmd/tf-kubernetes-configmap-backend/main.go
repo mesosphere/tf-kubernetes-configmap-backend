@@ -28,9 +28,9 @@ import (
 	"k8s.io/apiserver/pkg/server"
 	"k8s.io/apiserver/pkg/server/options"
 
-	tfhttp "github.com/jimmidyson/tf-kubernetes-configmap-backend/pkg/http"
-	"github.com/jimmidyson/tf-kubernetes-configmap-backend/pkg/kubernetes"
-	"github.com/jimmidyson/tf-kubernetes-configmap-backend/pkg/version"
+	tfhttp "github.com/mesosphere/tf-kubernetes-configmap-backend/pkg/http"
+	"github.com/mesosphere/tf-kubernetes-configmap-backend/pkg/kubernetes"
+	"github.com/mesosphere/tf-kubernetes-configmap-backend/pkg/version"
 )
 
 var (

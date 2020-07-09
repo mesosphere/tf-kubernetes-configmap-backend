@@ -101,7 +101,7 @@ docker.build.dev: .docker.build.dev.$(DOCKERFILE_DEV_SHA)
 	@docker build \
 			--build-arg=OS_PLATFORM=$(PLATFORM) \
 			$(if $(filter-out darwin,$(PLATFORM)),--build-arg=DOCKER_GID=$(shell getent group docker 2> /dev/null | cut -d: -f3)) \
-			-t jimmidyson/tf-kubernetes-configmap-backend-dev:$(DOCKERFILE_DEV_SHA) \
+			-t mesosphere/tf-kubernetes-configmap-backend-dev:$(DOCKERFILE_DEV_SHA) \
 			-f Dockerfile.dev .
 	@touch $@
 
@@ -115,9 +115,9 @@ docker.build.%: .docker.build.%.$(GIT_VERSION)
 
 .PRECIOUS: .docker.build.%.$(GIT_VERSION)
 .docker.build.%.$(GIT_VERSION): Dockerfile.go-binary $(ALL_SRC_FILES) $(OUTPUT_DIR)/linux/amd64/%
-	@echo Building Docker image: jimmidyson/$*:$(GIT_VERSION)
+	@echo Building Docker image: mesosphere/$*:$(GIT_VERSION)
 	@$(RM) $(subst $(GIT_VERSION),*,$@)
 	@sed 's/$${BINARY_NAME}/$*/g' Dockerfile.go-binary | docker build \
-		-t jimmidyson/$*:$(GIT_VERSION) \
+		-t mesosphere/$*:$(GIT_VERSION) \
 		-f - .
 	@touch $@

@@ -1,4 +1,4 @@
-module github.com/jimmidyson/tf-kubernetes-configmap-backend
+module github.com/mesosphere/tf-kubernetes-configmap-backend
 
 go 1.12
 

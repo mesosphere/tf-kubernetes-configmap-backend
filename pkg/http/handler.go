@@ -41,7 +41,7 @@ const (
 	MethodLock   = "LOCK"
 	MethodUnlock = "UNLOCK"
 
-	annotationKeyPrefix        = "tf-kubernetes-configmap-backend.jimmidyson.github.com/"
+	annotationKeyPrefix        = "tf-kubernetes-configmap-backend.mesosphere.github.com/"
 	annotationKeyLockID        = annotationKeyPrefix + "lock-id"
 	annotationKeyLockOperation = annotationKeyPrefix + "lock-operation"
 	annotationKeyLockInfo      = annotationKeyPrefix + "lock-info"
