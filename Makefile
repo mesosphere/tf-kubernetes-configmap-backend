@@ -120,3 +120,12 @@ docker.build.%: .docker.build.%.$(GIT_VERSION)
 		-t mesosphere/$*:$(GIT_VERSION) \
 		-f - .
 	@touch $@
+
+## Push all docker images
+.PHONY: docker.push
+docker.push: $(addprefix docker.push.,$(BINARY_NAMES))
+
+.PHONY: docker.push.%
+docker.push.%: docker.build.%
+	@echo Pushing Docker image: mesosphere/$*:$(GIT_VERSION)
+	@docker push mesosphere/$*:$(GIT_VERSION)

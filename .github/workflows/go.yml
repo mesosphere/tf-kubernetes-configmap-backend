@@ -1,7 +1,10 @@
 name: Build master
 on:
   push:
-    branches: [ master ]
+    branches: 
+    - master
+    tags:
+    - v*
 jobs:
   build:
     name: Build
@@ -19,3 +22,15 @@ jobs:
 
     - name: Build Docker images
       run: make docker.build
+
+    - name: Docker login
+      if: startsWith(github.ref, 'refs/tags')
+      uses: azure/docker-login@v1
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+    
+    - name: Docker push release
+      if: startsWith(github.ref, 'refs/tags')
+      run: make docker.push
+
